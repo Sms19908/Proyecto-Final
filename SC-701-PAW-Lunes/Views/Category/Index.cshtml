@@ -36,11 +36,11 @@
             <td>@category.Descripcion</td>
             <td>@category.Tallas</td>
             <td>
-                <a href="@Url.Action("Editar", new { id = category.Id_Cat })">Editar</a>
-                <a href="@Url.Action("Eliminar", new { id = category.Id_Cat })">Eliminar</a>
+                <a href="@Url.Action("Editar", new { id = category.Id_Cat })" class="btn btn-secondary">Editar</a>
+                <a href="@Url.Action("Eliminar", new { id = category.Id_Cat })" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
     }
 </table>
 
-<a href="@Url.Action("Index", "Inventory")">Ver Inventario</a>
+<a href="@Url.Action("Index", "Inventory")" class="btn btn-primary">Ver Inventario</a>
