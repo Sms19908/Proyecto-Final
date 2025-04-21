@@ -1,0 +1,40 @@
+﻿@model SC_701_PAW_Lunes.Models.Inventory
+
+@{
+    Layout = "_Layout";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Crear Producto</h2>
+<form method="post">
+    <label>Nombre</label>
+    <input type="text" asp-for="Nombre" class="form-control">
+
+    <label>ID de Categoria</label>
+    <input type="number" asp-for="Id_Cat" class="form-control">
+
+    <label>Marca</label>
+    <input type="text" asp-for="Marca" class="form-control">
+
+    <label>Precio</label>
+    <input type="number" asp-for="Precio" class="form-control">
+
+    <label>Descripción</label>
+    <textarea asp-for="Descripcion" class="form-control"></textarea>
+
+    <label>Cantidad</label>
+    <input type="number" asp-for="Cantidad" class="form-control">
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+<a href="@Url.Action("Index")">Cancelar</a>

@@ -1,0 +1,110 @@
+﻿@using SC_701_PAW_Lunes.ViewModel
+@model ReporteViewModel
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/styleextra.css" rel="stylesheet" />
+</head>
+
+@{
+    ViewData["Title"] = "Reportes de Inventario";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-5">
+        <i class="fas fa-chart-line"></i> Reportes de Inventario
+    </h2>
+
+    <!-- Primera fila con dos gráficos -->
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="chart-card">
+                <h3 class="text-center text-success">
+                    <i class="fas fa-box-open"></i> Ventas por Producto
+                </h3>
+                <canvas id="ventasProductoChart"></canvas>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="chart-card">
+                <h3 class="text-center text-warning">
+                    <i class="fas fa-sync-alt"></i> Rotación de Inventario
+                </h3>
+                <canvas id="rotacionInventarioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segunda fila con un gráfico centrado -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="chart-card">
+                <h3 class="text-center text-danger">
+                    <i class="fas fa-tags"></i> Ventas por Categoría
+                </h3>
+                <canvas id="ventasCategoriaChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para regresar -->
+    <div class="text-center mt-5">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-custom">
+            <i class="fas fa-home"></i> Volver al Inicio
+        </a>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    async function cargarDatos(url) {
+        const respuesta = await fetch(url);
+        return respuesta.json();
+    }
+
+    async function inicializarGraficos() {
+        const ventasProducto = await cargarDatos('/Reportes/ConsultarVentasPorProducto');
+        const rotacionInventario = await cargarDatos('/Reportes/ConsultarRotacionInventario');
+        const ventasCategoria = await cargarDatos('/Reportes/ConsultarVentasPorCategoria');
+
+        new Chart(document.getElementById('ventasProductoChart'), {
+            type: 'pie',
+            data: {
+                labels: ventasProducto.map(v => v.Nombre),
+                datasets: [{ data: ventasProducto.map(v => v.CantidadVendida), backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'] }]
+            }
+        });
+
+        new Chart(document.getElementById('rotacionInventarioChart'), {
+            type: 'pie',
+            data: {
+                labels: rotacionInventario.map(r => r.Nombre),
+                datasets: [{ data: rotacionInventario.map(r => r.RotacionInventario), backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'] }]
+            }
+        });
+
+        new Chart(document.getElementById('ventasCategoriaChart'), {
+            type: 'pie',
+            data: {
+                labels: ventasCategoria.map(c => c.Categoria),
+                datasets: [{ data: ventasCategoria.map(c => c.TotalVentas), backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'] }]
+            }
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", inicializarGraficos);
+</script>
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="rI4iHWI0cwP-NFfZb3aJ0";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>

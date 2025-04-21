@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SC_701_PAW_Lunes.Models.Inventory>
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Inventario de productos</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>ID de Categoria</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    @foreach (var inventory in Model)
+    {
+        <tr>
+            <td>@inventory.Nombre</td>
+            <td>@inventory.Id_Cat</td>
+            <td>@inventory.Marca</td>
+            <td>@inventory.Precio</td>
+            <td>@inventory.Descripcion</td>
+            <td>@inventory.Cantidad</td>
+            <td>
+                <a href="@Url.Action("Favoritos", new { id = inventory.Id_Inv })">Agregar favoritos</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Add", "Cart", new { id = inventory.Id_Inv })">Agregar al carrito</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="/Cart/Index.cshtml">Ver Carritos</a>  <!---\Cart\Index.cshtml opcion2--->
+
+<!-- Vista Usuarios-->

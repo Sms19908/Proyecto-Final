@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SC_701_PAW_Lunes.Models.Inventory>
+
+@{
+    Layout = "_Layout";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Inventario de productos</h2>
+<a class="btn btn-success" href="@Url.Action("Crear")">Agregar Producto</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>ID de Categoria</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    @foreach (var inventory in Model)
+    {
+        <tr>
+            <td>@inventory.Nombre</td>
+            <td>@inventory.Id_Cat</td>
+            <td>@inventory.Marca</td>
+            <td>@inventory.Precio</td>
+            <td>@inventory.Descripcion</td>
+            <td>@inventory.Cantidad</td>
+            <td>
+                <a href="@Url.Action("Editar", new { id = inventory.Id_Inv })">Editar</a>
+                <a href="@Url.Action("Eliminar", new { id = inventory.Id_Inv })">Eliminar</a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Add", "Cart", new { id = inventory.Id_Inv })">Agregar al carrito</a>
+            </td>
+        </tr>
+    }
+</table>
+
+ <a href="@Url.Action("Index", "Category")" class="btn btn-custom"> Ver categorias</a> 
+
+
+<!-- Vista Administrador-->

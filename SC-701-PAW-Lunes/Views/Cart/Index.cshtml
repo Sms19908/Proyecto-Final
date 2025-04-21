@@ -1,0 +1,58 @@
+﻿@model List<SC_701_PAW_Lunes.Models.CartItem>
+@{
+    ViewData["Title"] = "Carrito de Compras";
+}
+
+@{
+    Layout = "_Layout";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Carrito de Compras</h2>
+
+@if (!Model.Any())
+{
+    <p>Tu carrito está vacío.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>₡@item.Precio</td>
+                    <td>@item.Cantidad</td>
+                    <td>₡@item.Subtotal</td>
+                    <td>
+                        <a href="@Url.Action("Remove", "Cart", new { id = item.ProductoId })" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("Checkout")" class="btn btn-secondary">Pagar carrito</a>
+    <a href="@Url.Action("Index", "Inventory")">Volver a catalogo</a>
+    <h4>Total: ₡@ViewBag.Total</h4>
+}

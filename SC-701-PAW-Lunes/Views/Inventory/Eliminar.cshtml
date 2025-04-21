@@ -1,0 +1,26 @@
+﻿@model SC_701_PAW_Lunes.Models.Inventory
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<div class="container text-center">
+    <h2 class="text-danger">¿Estás seguro de que quieres eliminar este zapato?</h2>
+
+    <p><strong>Nombre:</strong> @Model.Nombre</p>
+    <p><strong>Id Categoria:</strong> @Model.Id_Cat</p>
+    <p><strong>Marca:</strong> @Model.Marca</p>
+    <p><strong>Precio:</strong> $@Model.Precio</p>
+
+    <form method="post" action="@Url.Action("EliminarConfirmado", new { id = Model.Id_Inv })">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

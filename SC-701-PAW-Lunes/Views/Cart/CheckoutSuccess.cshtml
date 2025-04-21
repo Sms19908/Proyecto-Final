@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Compra Realizada";
+}
+
+@{
+    Layout = "_Layout";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<div class="alert alert-success">
+    <h3>¡Gracias por tu compra!</h3>
+    <p>Tu orden ha sido procesada correctamente.</p>
+</div>
+
+<a href="@Url.Action("Index", "Inventory")" class="btn btn-primary">Seguir comprando</a>

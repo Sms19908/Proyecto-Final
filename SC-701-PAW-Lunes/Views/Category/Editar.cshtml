@@ -1,0 +1,44 @@
+﻿@model SC_701_PAW_Lunes.Models.Category
+
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Editar Categoria</h2>
+
+<form method="post" asp-action="Editar">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" asp-for="Nombre" class="form-control">
+        <span class="text-danger" asp-validation-for="Nombre"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripcion</label>
+        <input type="text" asp-for="Descripcion" class="form-control">
+        <span class="text-danger" asp-validation-for="Descripcion"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tallas</label>
+        <input type="text" asp-for="Tallas" class="form-control">
+        <span class="text-danger" asp-validation-for="Tallas"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+<a href="@Url.Action("Categorias")">Cancelar</a>

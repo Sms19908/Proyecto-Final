@@ -1,0 +1,86 @@
+
+@model IEnumerable<SC_701_PAW_Lunes.ViewModel.UserViewModel>
+@{
+    ViewData["Title"] = "Administración de Usuarios";
+    Layout = "_Layout";
+}
+
+<style>
+    .table-active {
+        background-color: #f8f9fa !important;
+        font-style: italic;
+    }
+</style>
+
+<div class="container mt-4">
+    <h3>@ViewData["Title"]</h3>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Roles</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr class="@(user.IsCurrentUser ? "table-active" : "")">
+                        <td>@user.Email</td>
+                        <td>@user.FullName</td>
+                        <td>@user.Roles</td>
+                        <td>
+                            @if (user.IsCurrentUser)
+                            {
+                                <span class="text-muted">Usuario actual</span>
+                            }
+                            else if (user.Active)
+                            {
+                                <form method="post" action="@Url.Action("Delete", "Admin", new { id = user.Id })">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('¿Estás seguro de eliminar este usuario?');">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            }
+                            else if (!user.Active)
+                            {
+                                <form method="post" action="@Url.Action("Activate", "Admin", new { id = user.Id })">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-warning btn-sm"
+                                            onclick="return confirm('¿Estás seguro de activar este usuario?');">
+                                        <i class="fas fa-check-circle"></i> Activar cuenta
+                                    </button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Confirmation before deletion
+        function confirmDelete(userId) {
+            return confirm(`¿Estás seguro de eliminar este usuario?`);
+        }
+    </script>
+}
+
+

@@ -1,0 +1,6 @@
+@SC_701_PAW_Lunes_HostAddress = http://localhost:5078
+
+GET {{SC_701_PAW_Lunes_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

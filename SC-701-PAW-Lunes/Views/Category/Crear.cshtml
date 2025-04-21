@@ -1,0 +1,66 @@
+﻿@model SC_701_PAW_Lunes.ViewModels.CategoryViewModel
+
+@{
+    ViewData["Title"] = "Crear Categoría";
+
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Crear Categoría</h2>
+
+@if (TempData["Mensaje"] != null)
+
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+<form asp-action="Crear" method="post">
+    <div class="form-group">
+        <label asp-for="Id_Cat" class="control-label">Id de la categoria</label>
+        <input asp-for="Id_Cat" class="form-control" />
+        <span asp-validation-for="Id_Cat" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label">Nombre de la categoria</label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descripcion" class="control-label">Descripcion</label>
+        <textarea asp-for="Descripcion" class="form-control"></textarea>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Tallas" class="control-label">Tallas</label>
+        <input asp-for="Tallas" class="form-control" />
+        <span asp-validation-for="Tallas" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+

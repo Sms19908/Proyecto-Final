@@ -1,0 +1,50 @@
+﻿@model List<SC_701_PAW_Lunes.Models.CartItem>
+@{
+    ViewData["Title"] = "Confirmar Compra";
+}
+
+@{
+    Layout = "_Layout";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Resumen de Compra</h2>
+
+<form asp-action="CheckoutConfirm" method="post">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Cantidad</td>
+                    <td>₡@item.Precio</td>
+                    <td>₡@item.Subtotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total a pagar: ₡@ViewBag.Total</h4>
+
+    <button href="@Url.Action("CheckoutSucces")" type="submit" class="btn btn-success">Confirmar Compra</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Volver al carrito</a>
+</form>

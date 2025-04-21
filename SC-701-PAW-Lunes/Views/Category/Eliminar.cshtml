@@ -1,0 +1,29 @@
+﻿@model SC_701_PAW_Lunes.Models.Category
+
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<div class="container text-center">
+    <h2 class="text-danger">¿Estás seguro de que quieres eliminar esta categoria?</h2>
+
+    <p><strong>Nombre:</strong> @Model.Nombre</p>
+    <p><strong>Descripcion:</strong> @Model.Descripcion</p>
+
+    <form method="post" action="@Url.Action("EliminarConfirmado", new { id = Model.Id_Cat })">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Categorias")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

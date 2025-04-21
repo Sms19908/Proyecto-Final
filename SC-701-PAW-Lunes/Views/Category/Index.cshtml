@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SC_701_PAW_Lunes.Models.Category>
+
+@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory App - @ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS (optional) -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<h2>Categorias</h2>
+<a class="btn btn-success" href="@Url.Action("Crear")">Agregar Categoria</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id de Categoria</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Tallas</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    @foreach (var category in Model)
+    {
+        <tr>
+            <td>@category.Id_Cat</td>
+            <td>@category.Nombre</td>
+            <td>@category.Descripcion</td>
+            <td>@category.Tallas</td>
+            <td>
+                <a href="@Url.Action("Editar", new { id = category.Id_Cat })">Editar</a>
+                <a href="@Url.Action("Eliminar", new { id = category.Id_Cat })">Eliminar</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Index", "Inventory")">Ver Inventario</a>

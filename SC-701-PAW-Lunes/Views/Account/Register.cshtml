@@ -1,0 +1,128 @@
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Registro de usuario";
+}
+
+@using SC_701_PAW_Lunes.ViewModel
+@model RegisterViewModel
+
+<!-- Estilos personalizados -->
+<style>
+    .register-container {
+        max-width: 500px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .register-title {
+        font-size: 26px;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .btn-custom {
+        background-color: #007bff;
+        color: white;
+        transition: all 0.3s ease-in-out;
+        border-radius: 8px;
+    }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+    .register-link {
+        color: #007bff;
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+    }
+
+        .register-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="register-container">
+        <h2 class="register-title text-center">
+            <i class="fas fa-user-plus"></i> Registro de usuario
+        </h2>
+
+        <div class="text-center mb-3">
+            ¿Ya tienes cuenta? <a href="/Account/Login" class="register-link">Inicia sesión</a>
+        </div>
+
+        @if (@ViewData["userError"] != null)
+        {
+            <div class="alert alert-danger text-center">@ViewData["userError"]</div>
+        }
+
+        <form action="/Account/Register" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group my-3">
+                <label asp-for="Email">
+                    <i class="fas fa-envelope"></i> Correo electrónico
+                </label>
+                <input asp-for="Email" class="form-control rounded-pill shadow-sm" name="Email" placeholder="Ingresa tu email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="FullName">
+                    <i class="fas fa-user"></i> Nombre completo
+                </label>
+                <input asp-for="FullName" class="form-control rounded-pill shadow-sm" name="FullName" placeholder="Ej. Juan Pérez" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="Direccion">
+                    <i class="fas fa-map-marker-alt"></i> Dirección
+                </label>
+                <input asp-for="Direccion" class="form-control rounded-pill shadow-sm" name="Direccion" placeholder="Tu dirección completa" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="SelectedRole"> <i class="fas fa-user-tag"></i> Tipo de cuenta</label>
+                <select class="form-control rounded-pill shadow-sm" name="SelectedRole">
+                    <option value="USER" selected>Usuario</option>
+                    <option value="ADMIN">Administrador (necesita activación)</option>
+                </select>
+                <span asp-validation-for="SelectedRole" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="Password">
+                    <i class="fas fa-lock"></i> Contraseña
+                </label>
+                <input asp-for="Password" class="form-control rounded-pill shadow-sm" name="Password" type="password" placeholder="Mínimo 6 caracteres" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group my-3">
+                <label asp-for="ConfirmPassword">
+                    <i class="fas fa-lock"></i> Repetir contraseña
+                </label>
+                <input asp-for="ConfirmPassword" class="form-control rounded-pill shadow-sm" name="ConfirmPassword" type="password" placeholder="Confirma tu contraseña" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100 py-2 mt-3">Registrarse</button>
+        </form>
+    </div>
+</div>
+
+<!-- FontAwesome para iconos -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+}
